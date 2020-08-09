@@ -1,133 +1,73 @@
-import React from 'react';
-import { Button, Image, Grid, Segment } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import './sass/main.scss';
 import 'semantic-ui-css/semantic.min.css';
 import styled from 'styled-components';
-import './sass/main.scss';
-
+import LeftSide from './leftSection';
+import NavBar from './navBar';
+import RightSide from './rightSide';
+import Main from './main';
+import Popup from './popUp';
+import axios from 'axios'
 
 function HomePage() {
+  const [movies, setMovies] = useState([])
+  let [searchedItem, setSearch] = useState("");
+  const [state, setState] = useState({
+    results: [],
+    selected: {}
+  });
+  const apiKey = 'f482964b09c3bde6b4872a88c420f460';
+  const apiUrl = 'https://api.themoviedb.org/3/search/movie?api_key=';
+
+  // Events handeling
+  
+  const handleSubmit = (e) => {
+    fetch(apiUrl + apiKey + '&query=' + searchedItem)
+      .then(data => data.json())
+      .then(data => {
+        setMovies(data.results)
+        let results = data.results;
+
+        setState(prevState => {
+          return { ...prevState, results: results }
+        })
+      })
+    e.preventDefault()
+  }
+
+
+  const handelChange = (e) => {
+    setSearch(searchedItem = e.target.value)
+  }
+
+  const openPopup = id => {
+    axios('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + 'f482964b09c3bde6b4872a88c420f460').then(({ data }) => {
+      let result = data;
+
+      console.log(result);
+
+      setState(prevState => {
+        return { ...prevState, selected: result }
+      });
+    });
+  }
+
+  const closePopup = () => {
+    setState(prevState => {
+      return { ...prevState, selected: {} }
+    });
+  }
+
   return (
-    <Conatainer className='container' >
-      <HeadSection className='headSection' >
-        <HeaderLeftSide className='headLeftsideSection' >
-          <h2 className='title'> critique. </h2>
-          <h1 className='secondaryText'>All Reviews</h1>
-        </HeaderLeftSide>
-        <div className="search-section">
-            <div className="search-box">
-            <input className='search-text' type="text" name="search" placeholder='Tape to search'/>
-            <a href="#" className='search-btn' ></a>
-          </div>
-        </div>
-      </HeadSection>
-      <LeftSection className='leftSection' >
-        <div className='links'>
-          <ul>
-            <li><a href="#">Main</a></li>
-            <li><a href="#">All Reviews</a></li>
-            <li><a href="#">Movies</a></li>
-            <li><a href="#">Actors</a></li>
-            <li><a href="#">Produser</a></li>
-            <li><a href="#">All Reviews</a></li>
-          </ul>
-        </div>
-
-        <Settings>
-          <ul>
-            <li><a href="#">My Reviews</a></li>
-            <li><a href="#">Settings</a></li>
-          </ul>
-        </Settings>
-      </LeftSection>
-      <MainSction className='mainSection' >
-        <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-                <Card className='card'>
-                </Card>
-      </MainSction>
-      <RightSection className='rightSection'>
-        <div className="rightTilte">
-          <h1 className='Activities'>Activities</h1>
-        </div>
-        <div className="rightSectionContainer">
-        <div className="ImageSection">
-          <div className="ImageShadow"></div>
-        </div>
-        <h3 className='RightSideTitle'>New Reviews</h3>
-        <ul className='LeftUl'>
-            <li><a href="#">Once Upon a Time</a> <span>100</span></li>
-            <li><a href="#">F&F: Hobbs and Shaw</a> <span>100</span></li>
-            <li><a href="#">The Angry Birds Movie </a> <span>6</span></li>
-            <li><a href="#">Avengers: Endgame</a> <span>256</span></li>
-            <li><a href="#">The Lion King</a> <span>19</span></li>
-            <li><a href="#">Toy Story 2</a> <span>170</span></li>
-          </ul>
-        </div>
-      </RightSection>
-
+    <Conatainer className='container'>
+      {/* {currentMovie == null ? <> <NavBar handleSubmit={handleSubmit} handelChange={handelChange} /> <LeftSide /> <Main movies={movies} viewMovieInfo={viewMovieInfo} /> <RightSide /> </> : <MovieInfo closeMovieInfo={closeMovieInfo} currentMovie={currentMovie} />} */}
+  <NavBar handleSubmit={handleSubmit} handelChange={handelChange} /> <LeftSide /> <Main movies={movies} openPopup={openPopup} /> <RightSide />
+  {(typeof state.selected.original_title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
     </Conatainer>
   )
 }
 
 const Conatainer = styled.div`
 `;
-
-
-const HeadSection = styled.section`
-`;
-
-const HeaderLeftSide = styled.div`
-
-`;
-
-
-const MainSction = styled.div`
-
-`;
-
-
-const RightSection = styled.section`
-
-`;
-
-const LeftSection = styled.section`
-
-`;
-
-const Card = styled.div`
-
-`;
-
-const Settings = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;  
-  align-items: center;
-  height: 78%;
-  width: 100%;
-  // border: 1px white solid;
-`;
-
-
 
 export default HomePage;
