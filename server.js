@@ -23,7 +23,7 @@ app.get('/', (req, res) =>{
 app.use(express.static(path.resolve(__dirname, './build')))
 
 app.listen(PORT, ()=>{
-    console.log(`The server is listening on ${PORT}`)
+    console.log(`The server is listening on localhost${PORT}`)
 })
 
 

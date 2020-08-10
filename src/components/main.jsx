@@ -1,6 +1,6 @@
-import React, {useRef, useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components';
-
+import uuid from 'uuid/dist/v1';
 
 const Main = ({movies, openPopup})=>{
  
@@ -8,8 +8,8 @@ const Main = ({movies, openPopup})=>{
         <MainSction className='mainSection' style={{ overflow: 'auto' }} >
         {
 
-          movies.map((movie, id)=>{
-            return (<Card key={id} onClick={() => openPopup(movie.id)} style={{ backgroundImage:"url(" + `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+ ")"}} >
+          movies.map((movie)=>{
+            return (<Card key={uuid()} onClick={() => openPopup(movie.id)} style={{ backgroundImage:"url(" + `https://image.tmdb.org/t/p/w500/${movie.poster_path}`+ ")"}} >
               <div className="poster-overlay">
                 <div className="card-content">
                 <h2 style={{ color:'white', fontSize:'16px'}} > {movie.original_title} </h2>

@@ -60,7 +60,6 @@ function HomePage() {
 
   return (
     <Conatainer className='container'>
-      {/* {currentMovie == null ? <> <NavBar handleSubmit={handleSubmit} handelChange={handelChange} /> <LeftSide /> <Main movies={movies} viewMovieInfo={viewMovieInfo} /> <RightSide /> </> : <MovieInfo closeMovieInfo={closeMovieInfo} currentMovie={currentMovie} />} */}
   <NavBar handleSubmit={handleSubmit} handelChange={handelChange} /> <LeftSide /> <Main movies={movies} openPopup={openPopup} /> <RightSide />
   {(typeof state.selected.original_title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
     </Conatainer>
