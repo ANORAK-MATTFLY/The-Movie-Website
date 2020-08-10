@@ -67,7 +67,7 @@ function HomePage() {
       <meta name="robots" content="index, follow" />
       <meta
       name="description"
-      content="A movie like website for all sort of movies and anime for all ages."
+      content="A streaming like website for all sort of movies and anime for all ages."
     />
     </Helmet>
     <Conatainer className='container'>
