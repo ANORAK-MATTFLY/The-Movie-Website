@@ -12,7 +12,7 @@ app.get('/', (req, res) =>{
         if(err){
             return console.log(err);
         }
-        data = data.replace(/__TITLE__/g, ' The movie critiques')
+        data = data.replace(/__TITLE__/g, 'The movie critiques')
         .replace(/__DESCRIPTION__/g, 'A movie like website for all sort of movies and anime for all ages.')
         res.send(data)
     });

@@ -16,13 +16,13 @@ function Popup({ selected, closePopup }) {
 		)
 	}, [])
 	return (
-		<section className="popup">
+		<section className="popup" >
 			<div className="content">
 				<h2>{ selected.original_title } <span>({ selected.release_date })</span></h2>
 				<p className="rating">Rating: {selected.popularity}</p>
 				<div className="plot">
 					<img ref={el => {animatedCard = el}} src={`https://image.tmdb.org/t/p/w500/${selected.poster_path}`} />
-					<p>{selected.Plot}</p>
+					<p className="overview">{selected.overview}</p>
 				</div>
 				<button className="close" onClick={closePopup}>Close</button>
 			</div>

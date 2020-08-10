@@ -34,7 +34,8 @@ background-size:cover;
 height:200px;
 width:100%;  
 background-repeat: 'no-repeat'; 
-
+cursor: pointer;
+border-radius: 3px;
 `;
 
 export default Main;
