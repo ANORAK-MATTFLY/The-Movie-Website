@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from "react-helmet";
 import './sass/main.scss';
 import 'semantic-ui-css/semantic.min.css';
 import styled from 'styled-components';
@@ -20,7 +21,7 @@ function HomePage() {
   const apiUrl = 'https://api.themoviedb.org/3/search/movie?api_key=';
 
   // Events handeling
-  
+
   const handleSubmit = (e) => {
     fetch(apiUrl + apiKey + '&query=' + searchedItem)
       .then(data => data.json())
@@ -59,10 +60,21 @@ function HomePage() {
   }
 
   return (
+    <>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title> Movies critiques</title>
+      <meta name="robots" content="index, follow" />
+      <meta
+      name="description"
+      content="A movie like website for all sort of movies and anime for all ages."
+    />
+    </Helmet>
     <Conatainer className='container'>
-  <NavBar handleSubmit={handleSubmit} handelChange={handelChange} /> <LeftSide /> <Main movies={movies} openPopup={openPopup} /> <RightSide />
-  {(typeof state.selected.original_title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
+      <NavBar handleSubmit={handleSubmit} handelChange={handelChange} /> <LeftSide /> <Main movies={movies} openPopup={openPopup} /> <RightSide />
+      {(typeof state.selected.original_title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
     </Conatainer>
+    </>
   )
 }
 
