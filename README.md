@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## official link of this project to view the result
+https://themoviecritique.netlify.app/
+
 ## Available Scripts
 
 In the project directory, you can run:
